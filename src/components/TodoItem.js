@@ -24,9 +24,12 @@ class TodoItem extends React.Component{
     }
   }
   
-  // Using proptypes.
+
+  //Proptypes.
   TodoItem.propTypes = {
-    todo: PropTypes.object.isRequired
+    todo: PropTypes.object.isRequired, 
+    markCompleted: PropTypes.func.isRequired, 
+    removeTodoItem: PropTypes.func.isRequired
   }
 
   // Button style 

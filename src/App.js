@@ -17,8 +17,9 @@ state = {
 // Fetching the todos api 
 
 componentDidMount(){
-  Axios.get('https://jsonplaceholder.typicode.com/todos?_limit=50').then(res => this.setState({todos: res.data}));
+  Axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10').then(res => this.setState({todos: res.data}));
 }
+
 // Changing the completion status of a to do item when clicked.
 markCompleted = (id) =>{
   this.setState({todos: this.state.todos.map(todo =>{
@@ -31,18 +32,16 @@ markCompleted = (id) =>{
 
 // Adding a new todo item 
 addTodoItem = (title)=>{
- const newTodo = {
-   id: this.state.todos.length +1, 
-   title, 
-   completed: false
- } 
- this.setState({todos: [...this.state.todos, newTodo]});
-
+  Axios.post('https://jsonplaceholder.typicode.com/todos', {
+    title, 
+    completed: false
+  }).then(res =>  this.setState({todos: [...this.state.todos, res.data]}));
 }
-// Remove/Delete a todo item.
 
+// Remove/Delete a todo item.
 removeTodoItem = (id)=>{
-  this.setState({todos: [...this.state.todos.filter(todo => todo.id !== id)]});
+  Axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+  .then(res =>  this.setState({todos: [...this.state.todos.filter(todo => todo.id !== id)]}));
 }
 
 
